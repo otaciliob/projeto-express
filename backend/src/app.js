@@ -6,6 +6,8 @@ const app = express();
 const engine = mustacheExpress();
 var indexRouter = require('./router');
 
+app.use(express.urlencoded())
+app.use(express.json())
 app.engine("mustache", engine);
 app.use(express.static("./src/images"))
 app.set('views', path.join(__dirname, 'views'));

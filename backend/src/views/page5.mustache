@@ -29,7 +29,7 @@
     <div id="content">
       <h3>Fale Conosco</h3>
       
-      <form>
+      <form action="/enviar" method="POST">
         <div>
           <label for="nome">nome</label>
           <label for="mail">e-mail</label>
@@ -42,6 +42,7 @@
           <input type="text" id="assunto" name="assunto">
           <textarea id="mensagem" name="mensagem"></textarea>
         </div>
+        <input type="submit" value="enviar">
       </form>
     </div>
     
@@ -84,6 +85,9 @@ a:hover{
 form{
   display:flex;
   flex-direction:row;
+  background-color:#eee;
+  padding: 18px;
+  border-radius:6px;
 }
 form>div{
   display:flex;
@@ -96,24 +100,19 @@ form>div{
   align-items:center;
   height: 80%;
 }
-form{
-  background-color:#eee;
-  padding: 18px;
-  border-radius:6px;
-}
 label{
-    padding-top: 3px;
-    text-align:left;
-    font-size:20px;
+  padding-top: 3px;
+  text-align:left;
+  font-size:20px;
 }
 input[type="text"],textarea{
-    width:375px;
-    margin-top: 3px;
-    margin-left: 3px
+  width:375px;
+  margin-top: 3px;
+  margin-left: 3px
 }
 #mensagem{
-    box-sizing: border-box;
-    resize: none;
-    height:300px;
+  box-sizing: border-box;
+  resize: none;
+  height:300px;
 }
 </style>
