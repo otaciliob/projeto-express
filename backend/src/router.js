@@ -1,6 +1,7 @@
 const express = require('express');
 const nodemailer = require("nodemailer");
 var router = express.Router();
+require('dotenv').config();
 
 router.get('/', function (req, res, next) {
   res.render('index');
@@ -17,7 +18,10 @@ router.get('/page4', function (req, res, next) {
 router.get('/page5', function (req, res, next) {
   res.render('page5');
 });
-router.post('/', function (req, res, next) { });
+router.post('/login', function (req, res, next) {
+  res.send("is working");
+  next();
+});
 
 router.post("/enviar", (req, res) => {
   console.log(req.body);
@@ -31,15 +35,21 @@ router.post("/enviar", (req, res) => {
     assunto: assunto,
     mensagem: mensagem
   };
-  console.log(values);
+  //console.log(values);
 
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD,
     },
+    tls:{
+      rejectUnauthorized: false,
+    },
   });
+  console.log(transporter);
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -58,5 +68,6 @@ router.post("/enviar", (req, res) => {
     }
   });
 });
+
 
 module.exports = router;
