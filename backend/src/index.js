@@ -1,14 +1,16 @@
-const app = require("./app");
+const express = require('express');
+var router = express.Router();
 
-app.get('/',(req,res)=>res.status(200).send("Hello World!"));
+router.get('/',(req,res)=>res.status(200).send("Hello World!"));
 
-app.get("/setcookie", (req, res) => {
+router.get("/setcookie", (req, res) => {
     res.cookie("Bearer", "A1B2C3D4");
     res.send("Cookie criado com sucesso!");
   });
-  app.get("/listcookie", (req, res) => {
+  router.get("/listcookie", (req, res) => {
     console.log(req.cookies);
-    res.send(req.cookies.nome_cookie);
+    res.send(req.cookies);
   });
 
-app.listen(3000,()=> console.log("listen..."))
+  module.exports = router;
+
