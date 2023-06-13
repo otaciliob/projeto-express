@@ -1,5 +1,5 @@
-const express = require('express');
 const nodemailer = require("nodemailer");
+const express = require('express');
 var router = express.Router();
 require('dotenv').config();
 
@@ -29,13 +29,6 @@ router.post("/enviar", (req, res) => {
   const email = req.body.mail;
   const assunto = req.body.assunto;
   const mensagem = req.body.mensagem;
-  const values = {
-    nome: nome,
-    email: email,
-    assunto: assunto,
-    mensagem: mensagem
-  };
-  //console.log(values);
 
   const transporter = nodemailer.createTransport({
     service: process.env.SMTP_HOST,
@@ -49,7 +42,6 @@ router.post("/enviar", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  console.log(transporter);
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -68,6 +60,5 @@ router.post("/enviar", (req, res) => {
     }
   });
 });
-
 
 module.exports = router;
