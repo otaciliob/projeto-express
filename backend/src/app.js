@@ -6,8 +6,9 @@ var logger = require('morgan');
 
 const app = express();
 const engine = mustacheExpress();
-var indexRouter = require('./router');
-var cookieRouter = require('./index');
+var indexRouter = require('./routers/router');
+var apiRouter = require('./routers/users');
+//var cookieRouter = require('./index');
 
 app.use(logger('dev'));
 app.use(express.urlencoded())
@@ -20,7 +21,8 @@ app.set('view engine', 'mustache');
 app.use(express.static("./src/images"))
 
 app.use('/', indexRouter);
-app.use('/cookie/', cookieRouter);
+app.use('/api/users', apiRouter);
+//app.use('/cookie/', cookieRouter);
 
 app.listen(3000,()=> console.log("listen..."))
 

@@ -18,8 +18,17 @@ router.get('/page4', function (req, res, next) {
 router.get('/page5', function (req, res, next) {
   res.render('page5');
 });
+router.get('/page6', function (req, res, next) {
+  res.render('page6');
+});
 router.post('/login', function (req, res, next) {
   res.send("is working");
+  console.log(req.body);
+  next();
+});
+router.post('/cadastro', function (req, res, next) {
+  res.send("is working");
+  console.log(req.body);
   next();
 });
 
