@@ -26,7 +26,7 @@ router.post("/", UserValidator.validateNome, function (req, res){
 })
 
 router.put("/:id", UserValidator.validateId, UserValidator.validateNome, function(req, res){ 
-  let obj = User.update(req.params.id, req.body.nome);
+  let obj = User.update(req.params.id, req.body.nome, req.body.password);
   if (!obj) {
     return res.json({status: false, msg: "Falha ao alterar a tarefa"})
   }

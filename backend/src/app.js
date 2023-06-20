@@ -7,7 +7,9 @@ var logger = require('morgan');
 const app = express();
 const engine = mustacheExpress();
 var indexRouter = require('./routers/router');
-var apiRouter = require('./routers/users');
+var homeRouter = require('./routers/home');
+var usersApi = require('./routers/users');
+var vacinasApi = require('./routers/vacinas');
 //var cookieRouter = require('./index');
 
 app.use(logger('dev'));
@@ -21,7 +23,9 @@ app.set('view engine', 'mustache');
 app.use(express.static("./src/images"))
 
 app.use('/', indexRouter);
-app.use('/api/users', apiRouter);
+app.use('/home', homeRouter);
+app.use('/api/users', usersApi);
+app.use('/api/vacinas', vacinasApi);
 //app.use('/cookie/', cookieRouter);
 
 app.listen(3000,()=> console.log("listen..."))
