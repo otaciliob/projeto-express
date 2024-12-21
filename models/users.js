@@ -2,21 +2,21 @@ let ids = 0;
 let users = [];
 
 module.exports = {
-    new(name, password) {
-        let user = { id: ++ids, name: name, password: password, admin: false };
+    new(nome, senha) {
+        let user = { id: ids++, nome: nome, senha: senha, admin: false };
         users.push(user);
         return user;
     },
-    new(name, password, admin) {
-        let user = { id: ++ids, name: name, password: password, admin: admin };
+    new(nome, senha, admin) {
+        let user = { id: ids++, nome: nome, senha: senha, admin: admin };
         users.push(user);
         return user;
     },
-    update(id, name, password) {
+    update(id, nome, senha) {
         let pos = this.getPositionById(id)
         if (pos >= 0) {
-            users[pos].name = name;
-            users[pos].password = password;
+            users[pos].nome = nome;
+            users[pos].senha = senha;
             return users[pos];
         }
         return null;
@@ -30,10 +30,7 @@ module.exports = {
     },
     getPositionById(identificador) {
         let i = 0;
-        if (users[identificador].id == identificador) {
-            i == identificador;
-            return i;
-        } else {
+        if (identificador) {
             for (i = 0; i < users.length; i++) {
                 if (users[i].id == identificador) {
                     return i;
@@ -42,10 +39,10 @@ module.exports = {
         }
         return -1;
     },
-    getIdByName(name) {
+    find(nome, senha) {//procura o usuario usando o nome e a senha, retorna o ID do usuario, se nao achar: -1
         for (let i = 0; i < users.length; i++) {
-            if (users[i].name == name) {
-                return users[i].id;
+            if (users[i].nome == nome && users[i].senha == senha) {
+                return users[i];
             }
         }
         return -1;
@@ -61,10 +58,10 @@ module.exports = {
     list() {
         return users;
     },
-    isAdmin(id){
+        /* isAdmin(id) {
         let i = this.getPositionById(id);
         if (i >= 0) {
             return users[i].admin;
         }
-    }
+    }*/
 }

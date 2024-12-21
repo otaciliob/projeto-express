@@ -1,18 +1,25 @@
 const jwt = require('jsonwebtoken');
-const pass = process.env.JWT_PASSWORD;
+const SENHA = process.env.JWT_PASSWORD;
 
-const validaAcesso = (req,res,next)=>{
+let autorizado = (req, res, next) => {
     let beareartoken = req.headers['authorization']
-    let token = ''
+    let token = '';
     if (beareartoken.startsWith("Bearer")) {
-        token = beareartoken.split(' ')[1]
+        token = beareartoken.split(' ')[1];
     }
     try {
-        let payload = jwt.verify(token, "")
-        req.user = payload
-        return next()
+        let payload = jwt.verify(token, SENHA);
+        req.user = payload;
+        return next();
     } catch {
-        return res.status(403).json({msg: "Acesso negado!"})
+        return res.status(403).json({msg: "Acesso negado!"});
     }
 }
-module.exports = { validaAcesso }
+let isAdmin = (req, res, next) => {
+    if (req.user.admin) {
+        return next();
+    } else {
+        res.status(403).json({msg: "Esta rota eh exclusiva para admin"});
+    }
+}
+module.exports = { autorizado, isAdmin }
