@@ -29,7 +29,7 @@ router.get('/bibliografia', async(req, res) => {
 });
 //cria um novo autor, apenas administradores
 router.post('/create',autorizado,isAdmin,validarAutor, async(req, res) => {
-    let {nome,biografia} = req.body;
+    let {nome,biografia,ano} = req.body;
     let autor = await Autores.new({nome: nome, biografia: biografia});
 
     res.json(autor);

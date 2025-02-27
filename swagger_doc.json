@@ -1,0 +1,375 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/list": {
+      "get": {
+        "description": "lista as informações de todos os usuarios cadastrados menos a senha, rota de testes",
+        "responses": {
+          "200": {
+            "description": "lista as informações de todos os usuarios cadastrados menos a senha"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "rota de login, recebe um usuario, composto por nome e senha, retorna um token de acesso caso a operação seja um sucesso",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "string": "any"
+                },
+                "senha": {
+                  "string": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna um token de acesso"
+          },
+          "400": {
+            "description": "Usuario não encontrado; Senha incorreta"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "description": "rota de cadastro para novos usuarios",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "string": "any"
+                },
+                "senha": {
+                  "string": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "novo usuario cadastrado"
+          },
+          "400": {
+            "description": "Erro ao cadastrar"
+          }
+        }
+      }
+    },
+    "/update/{id}": {
+      "put": {
+        "description": "rota para alterar o nome e senha do usuario, o usuario dele esta logado e pode alterar apenas as proprias informações",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "schema": "bearer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "string": "any"
+                },
+                "senha": {
+                  "string": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "informações alteradas com sucesso"
+          },
+          "400": {
+            "description": "erro ao alterar"
+          },
+          "403": {
+            "description": "Acesso não autorizado"
+          }
+        }
+      }
+    },
+    "/admin/create": {
+      "post": {
+        "description": "Rota de administradores, possibilita criar novos usuarios administradores e não administradores",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "schema": "bearer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "string": "any"
+                },
+                "senha": {
+                  "string": "any"
+                },
+                "admin": {
+                  "boolean": "true/false"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario criado com sucesso"
+          },
+          "403": {
+            "description": "Acesso não autorizado"
+          }
+        }
+      }
+    },
+    "/admin/update/{id}": {
+      "put": {
+        "description": "Rota de administradores, possibilita alterar as informações de outros usuarios, administradores ou não administradores",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "schema": "bearer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "string": "any"
+                },
+                "senha": {
+                  "string": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/{id}": {
+      "delete": {
+        "description": "Rota de administradores, possibilita excluir outros usuarios não administradores",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "schema": "bearer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Acesso não autorizado"
+          }
+        }
+      }
+    },
+    "/autores/bibliografia": {
+      "get": {
+        "description": "Retorna o Autor e uma lista com seu livros",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/livros/create": {
+      "post": {
+        "description": "Rota de administradores, inseri um novo livro ",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "schema": "bearer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "titulo": {
+                  "string": "any"
+                },
+                "autor": {
+                  "string": "any"
+                },
+                "descricao": {
+                  "string": "any"
+                },
+                "ano":{
+                  "number": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/livros/update/:id": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "number": "any"
+                },
+                "titulo": {
+                  "string": "any"
+                },
+                "autor": {
+                  "string": "any"
+                },
+                "ano": {
+                  "number": "any"
+                },
+                "descricao": {
+                  "string": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/livros/delete": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  }
+}
