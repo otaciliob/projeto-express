@@ -23,7 +23,7 @@ router.get('/list', async(req, res) => {
 });*/
 
 router.post('/create',validarLivro,autorizado,isAdmin, async(req, res) => {
-    let {titulo , autor, descricao} = req.body;
+    let {titulo , autor, ano, descricao} = req.body;
     let livro =await Livros.new({titulo,autor,ano,descricao});
 
     res.json(livro);
